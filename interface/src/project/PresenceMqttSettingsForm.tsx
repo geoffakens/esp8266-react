@@ -4,19 +4,19 @@ import { ValidateFieldsError } from "async-validator";
 import { Button } from "@mui/material";
 import SaveIcon from '@mui/icons-material/Save';
 
-import { ButtonRow, FormLoader, MessageBox, SectionContent, ValidatedTextField } from "../components";
+import { ButtonRow, FormLoader, SectionContent, ValidatedTextField } from "../components";
 import { validate } from "../validators";
 import { useRest, updateValue } from "../utils";
 
-import * as DemoApi from './api';
-import { LightMqttSettings } from "./types";
-import { LIGHT_MQTT_SETTINGS_VALIDATOR } from "./validators";
+import * as API from './api';
+import { PresenceMqttSettings } from "./types";
+import { PRESENCE_MQTT_SETTINGS_VALIDATOR } from "./validators";
 
-const LightMqttSettingsForm: FC = () => {
+const PresenceMqttSettingsForm: FC = () => {
   const [fieldErrors, setFieldErrors] = useState<ValidateFieldsError>();
   const {
     loadData, saveData, saving, setData, data, errorMessage
-  } = useRest<LightMqttSettings>({ read: DemoApi.readBrokerSettings, update: DemoApi.updateBrokerSettings });
+  } = useRest<PresenceMqttSettings>({ read: API.readBrokerSettings, update: API.updateBrokerSettings });
 
   const updateFormValue = updateValue(setData);
 
@@ -28,7 +28,7 @@ const LightMqttSettingsForm: FC = () => {
     const validateAndSubmit = async () => {
       try {
         setFieldErrors(undefined);
-        await validate(LIGHT_MQTT_SETTINGS_VALIDATOR, data);
+        await validate(PRESENCE_MQTT_SETTINGS_VALIDATOR, data);
         saveData();
       } catch (errors: any) {
         setFieldErrors(errors);
@@ -37,18 +37,13 @@ const LightMqttSettingsForm: FC = () => {
 
     return (
       <>
-        <MessageBox
-          level="info"
-          message="The LED is controllable via MQTT with the demo project designed to work with Home Assistant's auto discovery feature."
-          my={2}
-        />
         <ValidatedTextField
           fieldErrors={fieldErrors}
-          name="unique_id"
+          name="uniqueId"
           label="Unique ID"
           fullWidth
           variant="outlined"
-          value={data.unique_id}
+          value={data.uniqueId}
           onChange={updateFormValue}
           margin="normal"
         />
@@ -64,11 +59,11 @@ const LightMqttSettingsForm: FC = () => {
         />
         <ValidatedTextField
           fieldErrors={fieldErrors}
-          name="mqtt_path"
+          name="mqttPath"
           label="MQTT Path"
           fullWidth
           variant="outlined"
-          value={data.mqtt_path}
+          value={data.mqttPath}
           onChange={updateFormValue}
           margin="normal"
         />
@@ -88,4 +83,4 @@ const LightMqttSettingsForm: FC = () => {
   );
 };
 
-export default LightMqttSettingsForm;
+export default PresenceMqttSettingsForm;

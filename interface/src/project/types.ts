@@ -1,9 +1,16 @@
-export interface LightState {
-  led_on: boolean;
+export interface PresenceState {
+  presenceDetected: boolean;
 }
 
-export interface LightMqttSettings {
-  unique_id: string;
+export interface PresenceMqttSettings {
+  uniqueId: string;
   name: string;
-  mqtt_path: string;
+  mqttPath: string;
+}
+
+export interface PresenceSettings {
+  minRange: number;
+  maxRange: number;
+  detectionDelay: number;
+  clearDelay: number;
 }
