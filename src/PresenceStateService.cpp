@@ -17,6 +17,7 @@ PresenceStateService::PresenceStateService(AsyncWebServer* server,
     _presenceMqttSettingsService(presenceMqttSettingsService),
     _serial(SENSOR_RX_PIN, SENSOR_TX_PIN),
     _sensor(&_serial) {
+  _mqttClient->onConnect(std::bind(&PresenceStateService::applyMqttSettings, this));
   _presenceSettingsService->addUpdateHandler([&](const String& originId) { onSettingsUpdated(); }, false);
   _presenceMqttSettingsService->addUpdateHandler([&](const String& originId) { onMqttSettingsUpdated(); }, false);
 }
@@ -35,7 +36,6 @@ void PresenceStateService::begin() {
 
   // apply current settings
   applyPresenceSettings();
-  applyMqttSettings();
 
   pinMode(SENSOR_INPUT, INPUT_PULLDOWN_16);
 }
