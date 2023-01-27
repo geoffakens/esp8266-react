@@ -49,7 +49,6 @@ class PresenceStateService : public StatefulService<PresenceState> {
 
  private:
   WebSocketTxRx<PresenceState> _webSocket;
-  AsyncMqttClient* _mqttClient;
   MqttPub<PresenceState> _mqttPub;
   PresenceSettingsService* _presenceSettingsService;
   PresenceMqttSettingsService* _presenceMqttSettingsService;
