@@ -8,8 +8,6 @@
 #define PRESENCE_SETTINGS_FILE "/config/presenceSettings.json"
 #define PRESENCE_SETTINGS_PATH "/rest/presenceSettings"
 
-#define SENSOR_ORIGIN_ID "sensor"
-
 class PresenceSettings {
   public:
    float minRange;

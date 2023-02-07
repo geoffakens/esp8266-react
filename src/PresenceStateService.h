@@ -13,6 +13,7 @@
 #define SENSOR_RX_PIN 13
 #define SENSOR_TX_PIN 15
 #define SENSOR_SERIAL_BAUD_RATE 115200
+#define SENSOR_ORIGIN_ID "presence_sensor"
 
 #define SENSOR_INPUT 16
 

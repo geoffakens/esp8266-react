@@ -79,7 +79,7 @@ void PresenceStateService::applyMqttSettings() {
   String pubTopic;
 
   _presenceMqttSettingsService->read([&](PresenceMqttSettings& settings) {
-    pubTopic = settings.mqttPath + "/state";
+    pubTopic = settings.mqttPath + "/presence";
   });
 
   _mqttPub.setPubTopic(pubTopic);
