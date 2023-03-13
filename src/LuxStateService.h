@@ -7,6 +7,8 @@
 #include <Wire.h>
 #include <BH1750.h>
 
+// Sensor Pins:  SCL D1, SDA D2
+
 #define SENSOR_ORIGIN_ID "lux_sensor"
 #define SENSOR_READ_INTERVAL 30000
 

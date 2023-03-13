@@ -10,8 +10,8 @@
 
 #include "DFRobot_mmWave_Radar.h"
 
-#define SENSOR_RX_PIN 13
-#define SENSOR_TX_PIN 15
+#define SENSOR_RX_PIN 13 // D7 (Connection sensor TX)
+#define SENSOR_TX_PIN 15 // D8 (Connection sensor RX)
 #define SENSOR_SERIAL_BAUD_RATE 115200
 #define SENSOR_ORIGIN_ID "presence_sensor"
 
@@ -25,7 +25,7 @@ class PresenceState {
   bool presenceDetected;
 
   static void read(PresenceState& presenceState, JsonObject& root) {
-    root["presenceDetected"] = presenceState.presenceDetected;
+    root["detected"] = presenceState.presenceDetected;
   }
 
   static StateUpdateResult update(JsonObject& root, PresenceState& presenceState) {

@@ -2,6 +2,7 @@
 #include <PresenceSettingsService.h>
 #include <PresenceMqttSettingsService.h>
 #include <PresenceStateService.h>
+#include <MotionStateService.h>
 #include <LuxStateService.h>
 
 #define SERIAL_BAUD_RATE 115200
@@ -19,10 +20,18 @@ PresenceStateService presenceStateService = PresenceStateService(&server,
                                                         esp8266React.getMqttClient(),
                                                         &presenceSettingsService,
                                                         &presenceMqttSettingsService);
+#if FT_ENABLED(FT_MOTION)
+MotionStateService motionStateService = MotionStateService(&server,
+                                                        esp8266React.getSecurityManager(),
+                                                        esp8266React.getMqttClient(),
+                                                        &presenceMqttSettingsService);
+#endif
+#if FT_ENABLED(FT_LUX)
 LuxStateService luxStateService = LuxStateService(&server,
                                                         esp8266React.getSecurityManager(),
                                                         esp8266React.getMqttClient(),
                                                         &presenceMqttSettingsService);
+#endif
 
 void setup() {
   // start serial and filesystem
@@ -35,7 +44,12 @@ void setup() {
   presenceSettingsService.begin();
   presenceMqttSettingsService.begin();
   presenceStateService.begin();
+  #if FT_ENABLED(FT_MOTION)
+  motionStateService.begin();
+  #endif
+  #if FT_ENABLED(FT_LUX)
   luxStateService.begin();
+  #endif
 
   // start the server
   server.begin();
@@ -47,5 +61,10 @@ void loop() {
 
   // Monitor sensor state
   presenceStateService.loop();
+  #if FT_ENABLED(FT_MOTION)
+  motionStateService.loop();
+  #endif
+  #if FT_ENABLED(FT_LUX)
   luxStateService.loop();
+  #endif
 }
